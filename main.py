@@ -1,4 +1,7 @@
-from pexels_api_python.pexels_api import PexelsAPI
+
+# pip install pexels_api_python
+
+from pexels_api_python import PexelsAPI
 
 # Initialize the API with your API key
 api_key = "API_KEY"

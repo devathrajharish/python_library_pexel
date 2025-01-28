@@ -58,6 +58,29 @@ class PexelsAPI:
         response = requests.get(f"{self.base_url}/popular", headers=headers, params=params)
         response.raise_for_status()
         return response.json()
+    
+    def download_photo(self, photo_url, save_path):
+        """
+        Download a photo from Pexels and save it to the local system.
+
+        :param photo_url: The URL of the photo to download.
+        :param save_path: The local file path where the photo will be saved.
+        :return: None
+        """
+        try:
+            # Ensure the directory exists
+            os.makedirs(os.path.dirname(save_path), exist_ok=True)
+
+            # Download the photo
+            response = requests.get(photo_url)
+            response.raise_for_status()
+
+            # Save the photo to the specified path
+            with open(save_path, "wb") as file:
+                file.write(response.content)
+            print(f"Photo saved to {save_path}")
+        except Exception as e:
+            print(f"Failed to download photo: {e}")
 
 # Example usage:
 if __name__ == "__main__":
@@ -69,10 +92,9 @@ if __name__ == "__main__":
     search_results = pexels.search_photos("nature")
     print(search_results)
 
-    # Get a specific photo by ID
-    photo_details = pexels.get_photo(12345)  # Replace with a valid photo ID
-    print(photo_details)
-
-    # Get popular photos
-    popular_photos = pexels.get_popular_photos()
-    print(popular_photos)
+    # Download the first photo from the search results
+    if search_results.get("photos"):
+        first_photo = search_results["photos"][0]
+        photo_url = first_photo["src"]["original"]  # Get the original size URL
+        save_path = "downloaded_photo.jpg"  # Save to the current directory
+        pexels.download_photo(photo_url, save_path)
