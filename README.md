@@ -23,13 +23,11 @@ api_key = "API_KEY" ENTER YOUR API KEY
 pexels = PexelsAPI(api_key)
 
 # Search for photos
-search_results = pexels.search_photos("nature")
-print(search_results)
+search_results = pexels.search_photos("mountains")
 
-# Get details of a specific photo
-#photo_details = pexels.get_photo(12345)  # Replace with a valid photo ID
-#print(photo_details)
+# Download the first photo from the search results
 
-# Get popular photos
-popular_photos = pexels.get_popular_photos()
-print(popular_photos)
+if search_results.get("photos"):
+    first_photo = search_results["photos"][0]
+    photo_url = first_photo["src"]["original"]
+    pexels.download_photo(photo_url, "mountains.jpg")
