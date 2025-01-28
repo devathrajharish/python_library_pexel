@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="pexels_api_python",  # Name of your package
-    version="0.1.1",           # Version number
+    version="0.1.2",           # Version number
     author="Harish Devathraj",        # Your name
     author_email="devathrajharish@gmail.com",  # Your email
     description="A Python wrapper for the Pexels API",  # Short description
