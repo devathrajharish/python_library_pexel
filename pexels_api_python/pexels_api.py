@@ -1,4 +1,5 @@
 import requests
+import os
 
 class PexelsAPI:
     def __init__(self, api_key):
